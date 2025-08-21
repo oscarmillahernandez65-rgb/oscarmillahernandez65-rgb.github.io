@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carreras - Instituto Franklin Delano Roosevelt</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a3a6c 0%, #2c5282 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        /* Navegación superior */
+        .top-nav {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #1a3a6c, #f1c40f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+        }
+        
+        .nav-item {
+            margin: 0;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: #f1c40f;
+            color: #1a3a6c;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: #1a3a6c;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #1a3a6c 0%, #2c5282 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1000') no-repeat center center;
+            background-size: cover;
+            opacity: 0.15;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            font-style: italic;
+        }
+        
+        .content-section {
+            padding: 50px 40px;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1a3a6c;
+            font-size: 2.2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #f1c40f;
+            border-radius: 2px;
+        }
+        
+        .careers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .career-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .career-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .career-header {
+            background: linear-gradient(90deg, #1a3a6c 0%, #2c5282 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .career-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .career-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .career-body {
+            padding: 25px;
+        }
+        
+        .career-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .classes-title {
+            color: #1a3a6c;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #f1c40f;
+            padding-bottom: 5px;
+        }
+        
+        .classes-list {
+            list-style-type: none;
+        }
+        
+        .classes-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .classes-list li:before {
+            content: '•';
+            color: #f1c40f;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #0d1f3a;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .quote {
+            font-style: italic;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #f1c40f;
+            max-width: 800px;
+            margin: 20px auto 0;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            /* Navegación responsiva */
+            .top-nav {
+                position: relative;
+                border-radius: 15px;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-link {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .careers-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menú de navegación superior -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-logo">FDR</div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i> Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="carreras.html" class="nav-link active">
+                        <i class="fas fa-graduation-cap"></i> Carreras
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="graduados.html" class="nav-link">
+                        <i class="fas fa-user-graduate"></i> Graduados
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="header-overlay"></div>
+            <h1>Oferta Académica</h1>
+            <p class="subtitle">Formación técnica de calidad para el desarrollo de Puerto Cortés y Honduras</p>
+        </header>
+        
+        <div class="content-section">
+            <h2 class="section-title">Carreras Técnicas Disponibles</h2>
+            
+            <div class="careers-container">
+                <!-- Banca y Finanzas -->
+                <div class="career-card">
+                    <div class="career-header">
+                        <div class="career-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="career-title">Banca y Finanzas</h3>
+                    </div>
+                    <div class="career-body">
+                        <p class="career-description">
+                            Especialización en operaciones bancarias, productos financieros, análisis de inversiones y gestión de riesgos. Forma profesionales para el sector financiero con conocimientos en banca comercial, banca de inversión y finanzas corporativas.
+                        </p>
+                        <h4 class="classes-title">Algunas de las clases:</h4>
+                        <ul class="classes-list">
+                            <li>Operaciones Bancarias</li>
+                            <li>Análisis de Riesgo Crediticio</li>
+                            <li>Productos y Servicios Financieros</li>
+                            <li>Gestión de Cartera de Inversiones</li>
+                            <li>Banca Digital y Fintech</li>
+                            <li>Legislación Financiera</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Ciencias y Humanidades -->
+                <div class="career-card">
+                    <div class="career-header">
+                        <div class="career-icon">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <h3 class="career-title">Ciencias y Humanidades</h3>
+                    </div>
+                    <div class="career-body">
+                        <p class="career-description">
+                            Programa integral que combina el estudio de las ciencias sociales, la literatura, la historia y la filosofía con una base científica. Prepara a los estudiantes para carreras universitarias en diversas disciplinas.
+                        </p>
+                        <h4 class="classes-title">Algunas de las clases:</h4>
+                        <ul class="classes-list">
+                            <li>Literatura Universal</li>
+                            <li>Historia de Honduras y América</li>
+                            <li>Filosofía y Ética</li>
+                            <li>Psicología Social</li>
+                            <li>Metodología de la Investigación</li>
+                            <li>Sociología y Antropología</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Contaduría y Finanzas -->
+                <div class="career-card">
+                    <div class="career-header">
+                        <div class="career-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3 class="career-title">Contaduría y Finanzas</h3>
+                    </div>
+                    <div class="career-body">
+                        <p class="career-description">
+                            Formación en gestión contable, financiera y fiscal para empresas y organizaciones. Los estudiantes desarrollan competencias en contabilidad, auditoría, impuestos y análisis financiero para la toma de decisiones empresariales.
+                        </p>
+                        <h4 class="classes-title">Algunas de las clases:</h4>
+                        <ul class="classes-list">
+                            <li>Contabilidad General y Avanzada</li>
+                            <li>Análisis Financiero</li>
+                            <li>Legislación Tributaria</li>
+                            <li>Auditoría y Control Interno</li>
+                            <li>Costos y Presupuestos</li>
+                            <li>Software Contable</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Construcciones Metálicas -->
+                <div class="career-card">
+                    <div class="career-header">
+                        <div class="career-icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <h3 class="career-title">Construcciones Metálicas</h3>
+                    </div>
+                    <div class="career-body">
+                        <p class="career-description">
+                            Capacitación técnica en diseño, fabricación y montaje de estructuras metálicas para la construcción e industria. Los estudiantes desarrollan habilidades en soldadura, interpretación de planos, cálculo estructural y normas de seguridad industrial.
+                        </p>
+                        <h4 class="classes-title">Algunas de las clases:</h4>
+                        <ul class="classes-list">
+                            <li>Técnicas de Soldadura Avanzada</li>
+                            <li>Interpretación de Planos Estructurales</li>
+                            <li>Cálculo de Estructuras Metálicas</li>
+                            <li>Normas de Seguridad Industrial</li>
+                            <li>Metrología y Control de Calidad</li>
+                            <li>Fabricación de Elementos Metálicos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Hotelería y Turismo -->
+                <div class="career-card">
+                    <div class="career-header">
+                        <div class="career-icon">
+                            <i class="fas fa-hotel"></i>
+                        </div>
+                        <h3 class="career-title">Hotelería y Turismo</h3>
+                    </div>
+                    <div class="career-body">
+                        <p class="career-description">
+                            Formación en gestión de servicios hoteleros y turísticos, preparando profesionales para la creciente industria del turismo en Honduras. Los estudiantes aprenden sobre operaciones de hoteles, restaurantes, planificación de eventos y gestión de destinos turísticos.
+                        </p>
+                        <h4 class="classes-title">Algunas de las clases:</h4>
+                        <ul class="classes-list">
+                            <li>Gestión de Alimentos y Bebidas</li>
+                            <li>Operaciones de Recepción Hotelera</li>
+                            <li>Planificación de Eventos y Convenciones</li>
+                            <li>Turismo Sostenible</li>
+                            <li>Marketing Turístico</li>
+                            <li>Atención al Cliente en Hospitality</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Informática -->
+                <div class="career-card">
+                    <div class="career-header">
+                        <div class="career-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3 class="career-title">Informática</h3>
+                    </div>
+                    <div class="career-body">
+                        <p class="career-description">
+                            Formación en tecnologías de la información, programación, redes y soporte técnico. Prepara a los estudiantes para el dinámico campo de la tecnología con habilidades en desarrollo de software, mantenimiento de hardware y administración de redes.
+                        </p>
+                        <h4 class="classes-title">Algunas de las clases:</h4>
+                        <ul class="classes-list">
+                            <li>Programación</li>
+                            <li>Producciones digitales</li>
+                            <li>Redes informaticas</li>
+                            <li>Desarrollo Web</li>
+                            <li>Mantenimiento y Reparación</li>
+                            <li>Gestión Empresarial</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Robótica -->
+                <div class="career-card">
+                    <div class="career-header">
+                        <div class="career-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="career-title">Robótica</h3>
+                    </div>
+                    <div class="career-body">
+                        <p class="career-description">
+                            Programa especializado en automatización, mecatrónica y sistemas robóticos. Los estudiantes aprenden a diseñar, programar y mantener sistemas automatizados para aplicaciones industriales y tecnológicas.
+                        </p>
+                        <h4 class="classes-title">Algunas de las clases:</h4>
+                        <ul class="classes-list">
+                            <li>Principios de Mecatrónica</li>
+                            <li>Programación de Robots Industriales</li>
+                            <li>Sensores y Actuadores</li>
+                            <li>Sistemas Automatizados de Control</li>
+                            <li>Inteligencia Artificial Aplicada</li>
+                            <li>Diseño de Sistemas Embebidos</li>
+                        </ul>
+                    </div>
+                </div>
+             </div>
+        </div>
+        
+        <footer>
+            <p>Instituto Franklin Delano Roosevelt - "Formando profesionales para el futuro"</p>
+            <p class="quote">"La educación es el pasaporte hacia el futuro, el mañana pertenece a aquellos que se preparan para él en el día de hoy" - Malcolm X</p>
+            <p>© 2025 - Todos los derechos reservados</p>
+        </footer>
+    </div>
+
+    <script>
+        // Efecto de aparición para las tarjetas de carreras
+        document.addEventListener('DOMContentLoaded', function() {
+            const careerCards = document.querySelectorAll('.career-card');
+            careerCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 200 + (index * 100));
+            });
+            
+            // Marcar como activo el enlace actual
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FDR - Recorrido del Colegio</title>
+  <link rel="icon" href="imagenes/locopng.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a3a6c 0%, #2c5282 100%);
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    /* Navegación superior */
+    .top-nav {
+      position: sticky;
+      top: 20px;
+      z-index: 1000;
+      margin-bottom: 30px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50px;
+      padding: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .nav-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #1a3a6c, #f1c40f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      text-align: center;
+    }
+    
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 5px;
+    }
+    
+    .nav-item {
+      margin: 0;
+    }
+    
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: #f1c40f;
+      color: #1a3a6c;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      background: #1a3a6c;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      position: relative;
+    }
+
+    header {
+      background: linear-gradient(90deg, #1a3a6c 0%, #2c5282 100%);
+      color: white;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80') no-repeat center center;
+      background-size: cover;
+      opacity: 0.15;
+    }
+    
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .subtitle {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      font-style: italic;
+    }
+    
+    .divider {
+      height: 4px;
+      background: linear-gradient(90deg, #f1c40f, #e67e22);
+      width: 200px;
+      margin: 20px auto;
+      border-radius: 2px;
+    }
+
+    .recorrido-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 30px;
+      padding: 50px 40px;
+    }
+
+    .tarjeta {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 0;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+      overflow: hidden;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-10px);
+    }
+
+    .tarjeta img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 3px solid #f1c40f;
+    }
+
+    .tarjeta h2 {
+      color: #1a3a6c;
+      margin: 15px 0 5px;
+      font-size: 1.5rem;
+      padding: 0 15px;
+    }
+
+    .tarjeta p {
+      color: #2c5282;
+      padding: 0 15px 20px;
+      line-height: 1.6;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #0d1f3a;
+      color: white;
+      font-size: 1rem;
+    }
+    
+    .quote {
+      font-style: italic;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #f1c40f;
+      max-width: 800px;
+      margin: 20px auto 0;
+    }
+
+    /* Móvil */
+    @media (max-width: 768px) {
+      .top-nav {
+        position: relative;
+        border-radius: 15px;
+      }
+      
+      .nav-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .nav-link {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+      
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .recorrido-contenido {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 30px 20px;
+      }
+      
+      .tarjeta img {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Menú de navegación superior -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <div class="nav-logo">FDR</div>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link">
+            <i class="fas fa-home"></i> Inicio
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="carreras.html" class="nav-link">
+            <i class="fas fa-graduation-cap"></i> Carreras
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="graduados.html" class="nav-link">
+            <i class="fas fa-user-graduate"></i> Graduados
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header>
+      <div class="header-overlay"></div>
+      <h1>Recorrido del Colegio</h1>
+      <p class="subtitle">Conoce nuestras instalaciones y espacios educativos</p>
+    </header>
+
+    <section class="recorrido-contenido">
+        
+      <div class="tarjeta">
+        <img src="entrada.jpg" alt="Entrada" />
+        <h2>Entrada</h2>
+        <p>Acceso principal al colegio para estudiantes, personal y visitantes.</p>
+      </div>
+
+       <div class="tarjeta">
+        <img src="campo.jpg" alt="Campo" />
+        <h2>Campo</h2>
+        <p>Área abierta para eventos deportivos y recreativos al aire libre.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="edificioa.webp" alt="Edificio A" />
+        <h2>Edificio A</h2>
+        <p>Tres pisos y dos entradas. Primer piso: biblioteca, laboratorios de biología y física. Segundo piso: laboratorios de informática, dirección, subdirección, administración y secretaría. Tercer piso: laboratorios de informática y contaduría.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="edificioB.jpg" alt="Edificio B" />
+        <h2>Edificio B</h2>
+        <p>Tres pisos y dos entradas. Habitualmente para alumnos de ciclo y carrera. Cuenta con laboratorios de inglés y aulas normales.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="edificioC.jpg" alt="Edificio C" />
+        <h2>Edificio C</h2>
+        <p>Cinco aulas donde reciben clases alumnos de ciclo y carrera. Zona de clases de artística, cívica y tecnología.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="edificioD.jpg" alt="Edificio D" />
+        <h2>Edificio D</h2>
+        <p>Similar al edificio C, con clases de química, física elemental, biología y naturales. Incluye el huerto.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="gimnasio.png" alt="Gimnasio" />
+        <h2>Gimnasio</h2>
+        <p>Espacio para actividades deportivas y recreativas de los estudiantes.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="teatrogriego.jpg" alt="Teatro Griego" />
+        <h2>Teatro Griego</h2>
+        <p>Espacio cultural para presentaciones artísticas y actos académicos.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="salon_maritimo.jpg" alt="Salón de reuniones Marítimo" />
+        <h2>Salón de reuniones Marítimo</h2>
+        <p>Lugar para reuniones y actividades administrativas.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="laboratorio_informatica.jpg" alt="Laboratorios de informática" />
+        <h2>Laboratorios de informática</h2>
+        <p>Equipados para la enseñanza tecnológica y práctica de los estudiantes.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="parque.jpg" alt="Parque" />
+        <h2>Parque</h2>
+        <p>Zona verde para recreación y esparcimiento.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="canchita.jpg" alt="Canchita" />
+        <h2>Canchita</h2>
+        <p>Pequeña cancha para actividades deportivas y recreativas.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="taller_construcciones.jpg" alt="Taller de Construcciones Metálicas" />
+        <h2>Taller de Construcciones Metálicas</h2>
+        <p>Espacio para la enseñanza práctica de construcciones metálicas.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="laboratorio_alimentos.jpg" alt="Laboratorio de Alimentos" />
+        <h2>Laboratorio de Alimentos</h2>
+        <p>Espacio para la enseñanza y práctica en el área de alimentos.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="psicologa.jpg" alt="Psicóloga" />
+        <h2>Psicología</h2>
+        <p>Área destinada a la atención psicológica de los estudiantes.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="orientacion.jpg" alt="Orientación" />
+        <h2>Orientación</h2>
+        <p>Apoyo y guía para el desarrollo académico y personal.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="consejeria.jpg" alt="Consejería" />
+        <h2>Consejería</h2>
+        <p>Espacio para el asesoramiento y apoyo emocional.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="enfermeria.jpg" alt="Enfermería" />
+        <h2>Enfermería</h2>
+        <p>Atención médica básica para estudiantes y personal.</p>
+      </div>
+    </section>
+    
+    <footer>
+      <p>Instituto Franklin Delano Roosevelt - "Cuando un pueblo se une, nada lo detiene"</p>
+      <p class="quote">"La educación es el arma más poderosa que puedes usar para cambiar el mundo" - Nelson Mandela</p>
+      <p>© 2025 - Todos los derechos reservados</p>
+    </footer>
+  </div>
+
+  <script>
+    // Marcar como activo el enlace actual
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentPage = window.location.pathname.split('/').pop();
+      document.querySelectorAll('.nav-link').forEach(link => {
+        const linkPage = link.getAttribute('href');
+        if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

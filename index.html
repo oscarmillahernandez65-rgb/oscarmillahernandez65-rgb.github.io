@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origen del Instituto Franklin Delano Roosevelt</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a3a6c 0%, #2c5282 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        /* Navegación superior */
+        .top-nav {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #1a3a6c, #f1c40f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+        }
+        
+        .nav-item {
+            margin: 0;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: #f1c40f;
+            color: #1a3a6c;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: #1a3a6c;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #1a3a6c 0%, #2c5282 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+        }
+        
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin: 0 auto 20px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid #f1c40f;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .logo-placeholder {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(45deg, rgba(26, 58, 108, 0.8), rgba(241, 196, 15, 0.8));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            font-style: italic;
+        }
+        
+        .divider {
+            height: 4px;
+            background: linear-gradient(90deg, #f1c40f, #e67e22);
+            width: 200px;
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+        
+        .content-section {
+            padding: 50px 40px;
+            background: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1a3a6c;
+            font-size: 2.2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #f1c40f;
+            border-radius: 2px;
+        }
+        
+        .origin-content {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .origin-content p {
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(241, 196, 15, 0.2), rgba(241, 196, 15, 0));
+            padding: 15px 20px;
+            border-left: 4px solid #f1c40f;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .founders-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .founder-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .founder-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .founder-card h4 {
+            color: #1a3a6c;
+            margin: 15px 0 5px;
+        }
+        
+        .founder-card p {
+            color: #2c5282;
+            font-style: italic;
+        }
+        
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1a3a6c 0%, #2c5282 100%);
+            border-radius: 50%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        /* Botón de Tour */
+        .tour-button-container {
+            text-align: center;
+            margin: 40px 0 20px;
+        }
+        
+        .tour-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #1a3a6c 0%, #2c5282 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tour-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #2c5282 0%, #3a67a8 100%);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #0d1f3a;
+            color: white;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .quote {
+            font-style: italic;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #f1c40f;
+            max-width: 800px;
+            margin: 20px auto 0;
+        }
+        
+        .image-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .image-option {
+            width: 100px;
+            height: 70px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .image-option:hover {
+            transform: scale(1.05);
+            border-color: #f1c40f;
+        }
+        
+        .image-option.active {
+            border-color: #1a3a6c;
+        }
+        
+        .image-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .logo-placeholder {
+                width: 130px;
+                height: 130px;
+                font-size: 18px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            /* Navegación responsiva */
+            .top-nav {
+                position: relative;
+                border-radius: 15px;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-link {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <!-- Menú de navegación superior -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-logo">FDR</div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i> Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="carreras.html" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i> Carreras
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="graduados.html" class="nav-link">
+                        <i class="fas fa-user-graduate"></i> Graduados
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="container-background" id="containerBackground"></div>
+        
+        <header>
+            <div class="header-overlay" id="headerBackground"></div>
+            <div class="logo-container">
+                <div class="logo-placeholder">
+                    <img src="fdrlogo.jpg" alt="Logo del Instituto Franklin Delano Roosevelt" style="width: 180px; height: 180px; border-radius: 50%;">
+                </div>
+            </div>
+            <h1>Instituto Franklin Delano Roosevelt</h1>
+            <p class="subtitle">Origen e Historia Fundacional en Puerto Cortés, Honduras</p>
+        </header>
+        
+        <div class="content-section">
+            <h2 class="section-title">El Origen de una Institución</h2>
+            
+            
+            <div class="origin-content">
+                <p>La historia del Instituto Franklin Delano Roosevelt (FDR) en Puerto Cortés, Honduras, es un relato de esfuerzo comunitario, visión educativa y compromiso social que ha perdurado por más de ocho décadas.</p>
+                
+                <div class="highlight">
+                    <p>En 1944, un grupo de porteños visionarios, respaldados por la <strong>Logia Masónica</strong> y el <strong>Club Rotario</strong>, constituyó la <strong>Sociedad de Padres de Familia</strong> con el objetivo de crear un instituto de educación media que respondiera a las necesidades de la comunidad.</p>
+                </div>
+                
+                <p>El impulse fundacional surgió de la necesidad de contar con una institución educativa de nivel medio en la ciudad portuaria, que hasta entonces carecía de alternativas para la formación de sus jóvenes. La iniciativa fue encabezada por destacados miembros de la comunidad como Alberto Carias Quiroz (presidente), Jacobo Núñez Hércules (vicepresidente), José Urbizo (secretario) and Rafael Prince (tesorero).</p>
+                
+                <p>El proceso de legalización fue gestionado por el abogado Roberto Ramírez, quien presentó los documentos necesarios que acreditaban la idoneidad del primer director, el profesor <strong>Rubén Alvarado Peña</strong>, quien contaba con 16 años de experiencia docente. Finalmente, mediante <strong>Acuerdo No. 1030 del 26 de junio de 1945</strong>, el gobierno hondureño autorizó oficialmente el funcionamiento del instituto.</p>
+                
+                <h3 style="text-align: center; color: #1a3a6c; margin: 40px 0 20px;">Miembros Fundadores Clave</h3>
+                
+                <div class="founders-section">
+                    <div class="founder-card">
+                        <div class="icon-circle">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h4>Alberto Carias Quiroz</h4>
+                        <p>Presidente Fundador</p>
+                        <p>Logia Masónica</p>
+                    </div>
+                    
+                    <div class="founder-card">
+                        <div class="icon-circle">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h4>Jacobo Núñez Hércules</h4>
+                        <p>Vicepresidente</p>
+                        <p>Médico</p>
+                    </div>
+                    
+                    <div class="founder-card">
+                        <div class="icon-circle">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4>Rubén Alvarado Peña</h4>
+                        <p>Primer Director</p>
+                        <p>Experto en Educación</p>
+                    </div>
+                    
+                    <div class="founder-card">
+                        <div class="icon-circle">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <h4>José Urbizo</h4>
+                        <p>Secretario</p>
+                        <p>Coronel</p>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <h3 style="text-align: center; color: #1a3a6c; margin: 40px 0 20px;">El Origen del Nombre</h3>
+                
+                <p>La elección del nombre "Franklin Delano Roosevelt" para el instituto tiene dos posibles orígenes que reflejan el contexto histórico de la época:</p>
+                
+                <p><strong>1. Influencia de un benefactor:</strong> Según algunas versiones, un benefactor norteamericano entre los fundadores motivó el nombre para honrar a su compatriota, quien había fallecido recientemente (abril de 1945).</p>
+                
+                <p><strong>2. Admiración histórica:</strong> Otra teoría señala que los fundadores eligieron el nombre por admiración hacia Franklin D. Roosevelt, presidente de Estados Unidos entre 1933 y 1945, reconocido por su lucha global por la democracia durante la Segunda Guerra Mundial y por su política del "New Deal" que transformó la economía estadounidense.</p>
+                
+                <div class="highlight">
+                    <p>El instituto inició sus actividades con tres modalidades educativas: <strong>Bachillerato en Ciencias y Letras</strong>, <strong>Maestro de Enseñanza Primaria Urbana</strong> y <strong>Perito Mercantil y Contador Público</strong>, sentando las bases de lo que sería una institución fundamental para el desarrollo educativo de Puerto Cortés.</p>
+                </div>
+                
+                <!-- Botón de Tour -->
+                <div class="tour-button-container">
+                    <a href="tour.html" class="tour-button">
+                        <i class="fas fa-video"></i> Realizar Tour Virtual
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Instituto Franklin Delano Roosevelt - "Cuando un pueblo se une, nada lo detiene"</p>
+            <p class="quote">"La educación es el arma más poderosa que puedes usar para cambiar el mundo" - Nelson Mandela</p>
+            <p>© 2025 - Todos los derechos reservados</p>
+        </footer>
+    </div>
+
+    <script>
+        // Efecto de aparición para el contenido
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.origin-content p, .founder-card, .highlight');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 200 + (index * 100));
+            });
+            
+            // Marcar como activo el enlace actual
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
+                    link.classList.add('active');
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

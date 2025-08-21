@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduados - Instituto Franklin Delano Roosevelt</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a3a6c 0%, #2c5282 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        /* Navegación superior */
+        .top-nav {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #1a3a6c, #f1c40f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+        }
+        
+        .nav-item {
+            margin: 0;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: #f1c40f;
+            color: #1a3a6c;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: #1a3a6c;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #1a3a6c 0%, #2c5282 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1000') no-repeat center center;
+            background-size: cover;
+            opacity: 0.15;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            font-style: italic;
+        }
+        
+        .content-section {
+            padding: 50px 40px;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1a3a6c;
+            font-size: 2.2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #f1c40f;
+            border-radius: 2px;
+        }
+        
+        .graduates-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .graduate-card {
+            perspective: 1000px;
+            height: 350px;
+            cursor: pointer;
+        }
+        
+        .graduate-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .graduate-card.flipped .graduate-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .graduate-card-front, .graduate-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .graduate-card-front {
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .graduate-card-back {
+            background: linear-gradient(135deg, #1a3a6c 0%, #2c5282 100%);
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .graduate-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #f1c40f;
+            margin-bottom: 20px;
+        }
+        
+        .graduate-name {
+            font-size: 1.3rem;
+            color: #1a3a6c;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        
+        .graduate-year {
+            color: #2c5282;
+            font-style: italic;
+        }
+        
+        .graduate-quote {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .quote-icon {
+            font-size: 2rem;
+            color: #f1c40f;
+            margin-bottom: 15px;
+        }
+        
+        .instructions {
+            text-align: center;
+            margin-top: 30px;
+            color: #1a3a6c;
+            font-style: italic;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #0d1f3a;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .quote {
+            font-style: italic;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #f1c40f;
+            max-width: 800px;
+            margin: 20px auto 0;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            /* Navegación responsiva */
+            .top-nav {
+                position: relative;
+                border-radius: 15px;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-link {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .graduates-container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menú de navegación superior -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-logo">FDR</div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i> Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="carreras.html" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i> Carreras
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="graduados.html" class="nav-link active">
+                        <i class="fas fa-user-graduate"></i> Graduados
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="header-overlay"></div>
+            <h1>Nuestros Graduados</h1>
+            <p class="subtitle">Promoción 2025 - Orgullo del Instituto Franklin Delano Roosevelt</p>
+        </header>
+        
+        <div class="content-section">
+            <h2 class="section-title">Egresados Destacados</h2>
+            
+            <div class="graduates-container">
+                <!-- Tarjeta 1 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="ada.jpg" alt="1.Ada Garcia" class="graduate-image">
+                            <h3 class="graduate-name">1.Ada Garcia</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">""El esfuerzo de hoy es el éxito de mañana."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 2 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="alisonf.jpg" alt="2.Alisson Figueroa" class="graduate-image">
+                            <h3 class="graduate-name">2.Alisson Figueroa</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El futuro pertenece a aquellos que creen en la belleza de sus sueños y luchan por hacerlos realidad."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 3 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="alisonc.jpg" alt="3.Allison Cruz" class="graduate-image">
+                            <h3 class="graduate-name">3.Allison Cruz</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"Los obstáculos no deben detenerte. Si encuentras un muro, no te des por vencido."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 4 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="alma.jpg" alt="4.Alma Garcia" class="graduate-image">
+                            <h3 class="graduate-name">4.Alma Garcia</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"No midas tu éxito por lo que has logrado, sino por los obstáculos que has superado."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 5 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="andrea.jpg" alt="5.Andrea Madrid" class="graduate-image">
+                            <h3 class="graduate-name">5.Andrea Madrid</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El conocimiento es poder, pero la aplicación de ese conocimiento es verdadero poder."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 6 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="¡RAMON!.jpg" alt="6.Andrea Funez" class="graduate-image">
+                            <h3 class="graduate-name">6.Andrea Funez</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El camino hacia el éxito es tomar una acción masiva y decidida hacia tus metas."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 7 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="bessy.jpg" alt="7.Bessy Soriano" class="graduate-image">
+                            <h3 class="graduate-name">7.Bessy Soriano</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El futuro tiene muchos nombres. Para los débiles es lo inalcanzable."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 8 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="claudeth.jpg" alt="8.Claudeth Hernandez" class="graduate-image">
+                            <h3 class="graduate-name">8.Claudeth Hernandez</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El mañana pertenece a aquellos que se preparan para él hoy."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 9 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="damaris.jpg" alt="9.Damaris Soto" class="graduate-image">
+                            <h3 class="graduate-name">9.Damaris Soto</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"Vuela alto, sueña en grande y alcanza las estrellas."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 10 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="darlyn.jpg" alt="10.Darlyn Orellana" class="graduate-image">
+                            <h3 class="graduate-name">10.Darlyn Orellana</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El único límite para nuestros logros de mañana serán nuestras dudas de hoy."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 11 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="dilia.jpg" alt="11.Dilia Fernandez" class="graduate-image">
+                            <h3 class="graduate-name">11.Dilia Fernandez</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"No dejes que el ruido de las opiniones de los demás ahogue tu voz interior."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 12 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="eliani.jpg" alt="12.Eliani Claros" class="graduate-image">
+                            <h3 class="graduate-name">12.Eliani Claros</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El conocimiento es poder, pero el entusiasmo mueve el mundo."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 13 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="genesis.jpg" alt="13.Genesis Orellana" class="graduate-image">
+                            <h3 class="graduate-name">13.Genesis Orellana</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"Cree que puedes y ya estarás a medio camino."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 14 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="glenda.jpg" alt="Carlos Rodríguez" class="graduate-image">
+                            <h3 class="graduate-name">14.Glenda Sales</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"La graduación no es el final, es el comienzo del aprendizaje permanente."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 15 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="heibi.jpg" alt="María López" class="graduate-image">
+                            <h3 class="graduate-name">15.Heibi Alfaro</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"La mente que se abre a una nueva idea jamás volverá a su tamaño original."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 16 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="mckenzie.jpg" alt="José Martínez" class="graduate-image">
+                            <h3 class="graduate-name">16.Heidan Mc Kenzie</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"La educación es lo que queda después de olvidar lo que se ha aprendido en la escuela."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 17 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="heydi.jpg" alt="Laura Hernández" class="graduate-image">
+                            <h3 class="graduate-name">17.Heydi Munguia</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"Aprender es como remar contra corriente: en cuanto se deja, se retrocede."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 18 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="joselin.jpg" alt="Miguel González" class="graduate-image">
+                            <h3 class="graduate-name">18.Josselin Pineda</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El aprendizaje es un tesoro que seguirá a su dueño everywhere."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 19 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="kristy.jpg" alt="Ana García" class="graduate-image">
+                            <h3 class="graduate-name">19.Kristy Gutierrez</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"No me arrepiento de lo que he hecho, sino de lo que no hice cuando tenía la oportunidad."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 20 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="marien.jpg" alt="Carlos Rodríguez" class="graduate-image">
+                            <h3 class="graduate-name">20.Marien Rivera</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El mayor riesgo es no correr ningún riesgo."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 21 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="marta.jpg" alt="María López" class="graduate-image">
+                            <h3 class="graduate-name">21.Marta Cruz</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"Sé el cambio que quieres ver en el mundo."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 22 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="merly.jpg" alt="José Martínez" class="graduate-image">
+                            <h3 class="graduate-name">22.Merlyn Navarro</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"La vida es 10% lo que me ocurre y 90% cómo reacciono a ello."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 23 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="rosa.jpg" alt="Laura Hernández" class="graduate-image">
+                            <h3 class="graduate-name">23.Rosa Espinal</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"No cuentes los días, haz que los días cuenten."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 24 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="sulmi.jpg" alt="Miguel González" class="graduate-image">
+                            <h3 class="graduate-name">24.Sulmi Rodriguez</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El éxito consiste en ir de fracaso en fracaso sin perder el entusiasmo."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 25 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="yaritza.jpg" alt="Ana García" class="graduate-image">
+                            <h3 class="graduate-name">25.Yaritsa Velasquez</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El éxito no es definitivo, el fracaso no es fatales: lo que cuenta es el valor para continuar."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 26 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="abner.jpg" alt="Carlos Rodríguez" class="graduate-image">
+                            <h3 class="graduate-name">26.Abner Zaldivar</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El secreto del éxito es la constancia en el propósito."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 27 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="ashton.jpg" alt="María López" class="graduate-image">
+                            <h3 class="graduate-name">27.Ashton Ordoñez</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El éxito generalmente llega a quienes están demasiado ocupados para estar buscándolo."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 28 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="david.jpg" alt="José Martínez" class="graduate-image">
+                            <h3 class="graduate-name">28.David Martell</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"No se como llegamos acá pero acá estamos"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 29 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="hefer.jpg" alt="Laura Hernández" class="graduate-image">
+                            <h3 class="graduate-name">29.Hefer Medina</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"Real hasta la muerte", "Brrrr", "Yo soy la leyenda", "Me importa una mierda la vieja o la nueva, el que abra la boca y más brille se queda" y "Antes éramos dos y ahora somos tres, con tu foto en la pared".</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 30 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="jaredu.jpg" alt="Miguel González" class="graduate-image">
+                            <h3 class="graduate-name">30.Jared Urbina</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"Cuando una puerta se cierra, otra se abre; pero a menudo miramos tanto tiempo a la puerta cerrada que no vemos la que se ha abierto para nosotros."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 31 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="jaredg.jpg" alt="Ana García" class="graduate-image">
+                            <h3 class="graduate-name">31.Jared Gavarrete</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"La oportunidad no llama a la puerta, la creas tú."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 32 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="jayson.jpg" alt="Carlos Rodríguez" class="graduate-image">
+                            <h3 class="graduate-name">32.Jayson Howell</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"No esperes por el momento preciso, da el paso y haz el momento."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 33 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="jeferson.jpg" alt="María López" class="graduate-image">
+                            <h3 class="graduate-name">33.Jefferson Bennett</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"La caída no es un fracaso. El fracaso es quedarse donde has caído."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 34 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="jery.jpg" alt="José Martínez" class="graduate-image">
+                            <h3 class="graduate-name">34.Jery Caballero</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"Hoy no decimos adiós, sino hasta pronto a una etapa inolvidable."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 35 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="job.jpg" alt="Laura Hernández" class="graduate-image">
+                            <h3 class="graduate-name">35.Job Cruz</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"Nunca es demasiado tarde para ser lo que podrías haber sido."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 36 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="luis.jpg" alt="Miguel González" class="graduate-image">
+                            <h3 class="graduate-name">36.Luis Argueta</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"Este diploma es solo el prólogo de nuestra gran historia."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 37 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="orlin.jpg" alt="Laura Hernández" class="graduate-image">
+                            <h3 class="graduate-name">38.Orlin Luna</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"El conocimiento es poder, pero la aplicación de ese conocimiento es verdadero poder."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta 38 -->
+                <div class="graduate-card" onclick="flipCard(this)">
+                    <div class="graduate-card-inner">
+                        <div class="graduate-card-front">
+                            <img src="oscar.jpg" alt="Miguel González" class="graduate-image">
+                            <h3 class="graduate-name">38.Oscar Milla</h3>
+                            <p class="graduate-year">Informática</p>
+                        </div>
+                        <div class="graduate-card-back">
+                            <div class="quote-icon">"</div>
+                            <p class="graduate-quote">"Teach me to love just to let me go I can't believe that I'm not enough Not enough And so long No one will be here to save you And no one will be here to let you know Let you know."</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <p class="instructions">Haz clic en cualquier tarjeta para ver el mensaje de graduación</p>
+        </div>
+        
+        <footer>
+            <p>Instituto Franklin Delano Roosevelt - "Formando los líderes del mañana"</p>
+            <p class="quote">"La graduación no es el final; es el comienzo de una nueva etapa llena de oportunidades"</p>
+            <p>© 2025 - Todos los derechos reservados</p>
+        </footer>
+    </div>
+
+    <script>
+        // Función para voltear las tarjetas
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+        
+        // Efecto de aparición para las tarjetas de graduados
+        document.addEventListener('DOMContentLoaded', function() {
+            const graduateCards = document.querySelectorAll('.graduate-card');
+            graduateCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 200 + (index * 100));
+            });
+            
+            // Marcar como activo el enlace actual
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
